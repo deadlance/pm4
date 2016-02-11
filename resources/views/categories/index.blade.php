@@ -30,7 +30,7 @@
                 var categories = [];
                 $("#categories").html("");
                 $.each(data, function(key, val) {
-                    $("#categories").append("<li class='subcat' data-parent='" + val.parent + "' data-id='" + val.id + "' onClick='getSubcats(this);'>" + val.name + '</li>');
+                    $("#categories").append("<li data-parent='" + val.parent + "' data-id='" + val.id + "' onClick='getSubcats(this);'>" + val.name + '</li>');
                     previous = val.parent;
                 });
             });
@@ -43,18 +43,18 @@
             var dataID = cat.getAttribute("data-id");
             previous = cat.getAttribute("data-parent");
 
-            if(dataID == "null") {
+            if (dataID == "null" || dataID == null || dataID == '') {
                 getRootCategories();
             }
             else {
                 $.getJSON("api/categories/" + dataID, function (data) {
                     if (data.length != 0) {
-                        $("#categories").html("");
+                        $("#categories").html(""); // clear the previous categories out so we can replace them with the new categories
                         var newCats = '';
                         var parent = '';
                         $.each(data, function (key, val) {
-                            parent = "<li class='subcat' data-id='" + previous + "' onClick='getSubcats(this);'>Back</li>";
-                            newCats += "<li class='subcat' data-parent='" + val.parent + "' data-id='" + val.id + "' onClick='getSubcats(this);'>" + val.name + '</li>';
+                            parent = "<li data-id='" + previous + "' onClick='getSubcats(this);'>Back</li>";
+                            newCats += "<li data-parent='" + val.parent + "' data-id='" + val.id + "' onClick='getSubcats(this);'>" + val.name + '</li>';
                         });
                         $("#categories").append(parent + newCats);
 
