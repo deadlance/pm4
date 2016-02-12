@@ -17,6 +17,7 @@ Route::group(['middleware' => ['web']], function () {
    */
   Route::resource('api/categories', 'CategoriesController');
 
+  Route::resource('api/products', 'ProductsController');
 
 
   Route::get('/', array('as' => 'home', function () {
@@ -26,6 +27,11 @@ Route::group(['middleware' => ['web']], function () {
   Route::get('/categories', function() {
     return view('categories.index');
   });
+
+  // Show Products for the category id
+  Route::get('/categories/{category_id}', 'CategoriesController@getProducts');
+  Route::get('/category/products/{category_id}', 'ProductsController@categoryListing');
+
 
 
   /*

@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Category;
+use App\Product;
 
 class CategoriesController extends Controller
 {
@@ -49,6 +50,11 @@ class CategoriesController extends Controller
 
   public function destroy() {
 
+  }
+
+  public function getProducts($category_id)
+  {
+    return Category::find($category_id)->products;
   }
 
 }
